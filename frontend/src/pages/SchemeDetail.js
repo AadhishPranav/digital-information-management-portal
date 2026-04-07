@@ -8,7 +8,7 @@ function SchemeDetail() {
   const [scheme, setScheme] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/schemes/${id}`)
+    fetch(`https://edu-portal-backend-qjkm.onrender.com/api/schemes/${id}`)
       .then(res => res.json())
       .then(data => setScheme(data))
       .catch(err => console.error(err));

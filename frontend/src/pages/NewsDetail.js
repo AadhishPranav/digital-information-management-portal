@@ -8,7 +8,7 @@ function NewsDetail() {
   const [news, setNews] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/news/${id}`)
+    fetch(`https://edu-portal-backend-qjkm.onrender.com/api/news/${id}`)
       .then(res => res.json())
       .then(data => setNews(data))
       .catch(err => console.error(err));

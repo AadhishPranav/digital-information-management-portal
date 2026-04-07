@@ -8,7 +8,7 @@ function PolicyDetail() {
   const [policy, setPolicy] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/policies/${id}`)
+    fetch(`https://edu-portal-backend-qjkm.onrender.com/api/policies/${id}`)
       .then(res => res.json())
       .then(data => setPolicy(data));
   }, [id]);

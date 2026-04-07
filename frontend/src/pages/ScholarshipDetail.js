@@ -8,7 +8,7 @@ function ScholarshipDetail() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/scholarships/${id}`)
+    fetch(`https://edu-portal-backend-qjkm.onrender.com/api/scholarships/${id}`)
       .then(res => res.json())
       .then(data => setData(data));
   }, [id]);

@@ -6,7 +6,7 @@ function Regulations() {
   const [regulations, setRegulations] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/regulations")
+    fetch("https://edu-portal-backend-qjkm.onrender.com/api/regulations")
       .then(res => res.json())
       .then(data => setRegulations(data))
       .catch(err => console.error(err));

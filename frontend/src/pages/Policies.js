@@ -6,7 +6,7 @@ function Policies() {
   const [policies, setPolicies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/policies")
+    fetch("https://edu-portal-backend-qjkm.onrender.com/api/policies")
       .then((res) => res.json())
       .then((data) => setPolicies(data))
       .catch((err) => console.error(err));

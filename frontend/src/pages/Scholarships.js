@@ -6,7 +6,7 @@ function Scholarships() {
   const [scholarships, setScholarships] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/scholarships")
+    fetch("https://edu-portal-backend-qjkm.onrender.com/api/scholarships")
       .then(res => res.json())
       .then(data => setScholarships(data))
       .catch(err => console.error(err));
