@@ -8,7 +8,7 @@ function HigherStudyDetail() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/higherstudies/${id}`)
+    fetch(`https://edu-portal-backend-qjkm.onrender.com/api/higherstudies/${id}`)
       .then(res => res.json())
       .then(data => setData(data));
   }, [id]);

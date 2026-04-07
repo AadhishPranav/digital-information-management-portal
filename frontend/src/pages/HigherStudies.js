@@ -6,7 +6,7 @@ function HigherStudies() {
   const [studies, setStudies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/higherstudies")
+    fetch("https://edu-portal-backend-qjkm.onrender.com/api/higherstudies")
       .then(res => res.json())
       .then(data => setStudies(data))
       .catch(err => console.error(err));
