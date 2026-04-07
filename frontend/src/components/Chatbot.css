@@ -1,0 +1,145 @@
+/* Wrapper */
+.chatbot-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* Floating Button */
+.chatbot-button {
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #6c4ccf, #8a6cff);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Chat Window */
+.chatbot-window {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 420px;
+  height: 650px;
+  background: #1f1f2e;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Header */
+.chatbot-header {
+  background: linear-gradient(135deg, #6c4ccf, #8a6cff);
+  color: white;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+/* Body */
+.chatbot-body {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+}
+
+/* Message Block */
+.message-block {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Messages */
+.msg {
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 75%;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* User Message */
+.msg.user {
+  background: linear-gradient(135deg, #6c4ccf, #8a6cff);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+/* Bot Message */
+.msg.bot {
+  background: #2c2c44;
+  color: #ddd;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cards */
+.chat-card {
+  background: #2a2a40;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+  transition: 0.2s;
+}
+
+.chat-card:hover {
+  background: #34345a;
+}
+
+/* View Button */
+.view-btn {
+  margin-top: 8px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #6c4ccf, #8a6cff);
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  background: #8a6cff;
+}
+
+/* Footer */
+.chatbot-footer {
+  display: flex;
+  border-top: 1px solid #444;
+}
+
+.chatbot-footer input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.chatbot-footer button {
+  background: #6c4ccf;
+  color: white;
+  border: none;
+  padding: 10px;
+}

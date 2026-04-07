@@ -1,0 +1,31 @@
+.hero {
+  background: linear-gradient(135deg, #4b2aad, #7b5cd6);
+  padding: 80px 20px;
+}
+
+.search-bar {
+  width: 60%;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.info-card:hover {
+  transform: scale(1.05);
+}
+
+.card-link {
+  text-decoration: none;
+  color: black;
+}

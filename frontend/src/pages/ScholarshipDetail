@@ -1,0 +1,35 @@
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+function ScholarshipDetail() {
+
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/scholarships/${id}`)
+      .then(res => res.json())
+      .then(data => setData(data));
+  }, [id]);
+
+  if (!data) return <p className="text-center mt-5">Loading Scholarship...</p>;
+
+  return (
+    <div className="container mt-4">
+
+      <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
+
+      <h2>{data.title}</h2>
+      <p>{data.description}</p>
+
+      {data.eligibility && <p><b>Eligibility:</b> {data.eligibility}</p>}
+      {data.provider && <p><b>Provider:</b> {data.provider}</p>}
+
+    </div>
+  );
+}
+
+export default ScholarshipDetail;
