@@ -93,7 +93,7 @@ function Chatbot() {
     type = match.type;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/${endpoint}`);
+      const res = await fetch(`https://edu-portal-backend-qjkm.onrender.com/api/${endpoint}`);
       const data = await res.json();
 
       setMessages(prev => [
