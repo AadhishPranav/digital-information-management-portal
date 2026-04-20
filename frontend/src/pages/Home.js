@@ -12,7 +12,7 @@ function Home() {
 
   try {
     const res = await fetch(
-      `https://edu-portal-backend-qjkm.onrender.com/api/search/${encodeURIComponent(query)}`
+      `https://edu-portal-backend-qjkm.onrender.com/api/search?q=${encodeURIComponent(query)}`
     );
     const data = await res.json();
 

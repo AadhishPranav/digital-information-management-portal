@@ -8,34 +8,46 @@ const Scholarship = require("../models/Scholarship");
 const HigherStudy = require("../models/HigherStudy");
 const News = require("../models/News");
 
-router.get("/:query", async (req, res) => {
-  const q = req.params.query;
+router.get("/", async (req, res) => {
+  const q = req.query.q;
+
+  if (!q) return res.json([]);
 
   try {
     const regex = new RegExp(q, "i");
-
     const results = [];
 
-    const policies = await Policy.find({ title: regex });
-    const schemes = await Scheme.find({ title: regex });
-    const regulations = await Regulation.find({ title: regex });
-    const scholarships = await Scholarship.find({ title: regex });
-    const studies = await HigherStudy.find({ title: regex });
-    const news = await News.find({ title: regex });
+    const collections = [
+      { model: Policy, type: "policies" },
+      { model: Scheme, type: "schemes" },
+      { model: Regulation, type: "regulations" },
+      { model: Scholarship, type: "scholarships" },
+      { model: HigherStudy, type: "higherstudies" },
+      { model: News, type: "news" }
+    ];
 
-    policies.forEach(item => results.push({ ...item._doc, type: "policies" }));
-    schemes.forEach(item => results.push({ ...item._doc, type: "schemes" }));
-    regulations.forEach(item => results.push({ ...item._doc, type: "regulations" }));
-    scholarships.forEach(item => results.push({ ...item._doc, type: "scholarships" }));
-    studies.forEach(item => results.push({ ...item._doc, type: "higherstudies" }));
-    news.forEach(item => results.push({ ...item._doc, type: "news" }));
+    for (let col of collections) {
+      const data = await col.model.find({
+        $or: [
+          { title: regex },
+          { description: regex }
+        ]
+      });
+
+      data.forEach(item => {
+        results.push({
+          ...item._doc,
+          type: col.type
+        });
+      });
+    }
 
     res.json(results);
 
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err);
+    res.status(500).json({ error: "Search failed" });
   }
-  console.log("Search route loaded");
 });
 
 module.exports = router;
