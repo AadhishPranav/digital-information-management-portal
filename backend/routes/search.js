@@ -35,6 +35,7 @@ router.get("/:query", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+  console.log("Search route loaded");
 });
 
 module.exports = router;
