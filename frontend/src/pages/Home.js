@@ -5,28 +5,57 @@ import "./Home.css";
 function Home() {
 
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSearch = async () => {
-  if (!query.trim()) return;
+  // 🔥 LIVE SEARCH (on typing)
+  const handleChange = async (e) => {
+    const value = e.target.value;
+    setQuery(value);
 
-  try {
-    const res = await fetch(
-      `https://edu-portal-backend-qjkm.onrender.com/api/search?q=${encodeURIComponent(query)}`
-    );
-    const data = await res.json();
-
-    if (data.length > 0) {
-      const item = data[0]; // first match
-
-      navigate(`/${item.type}/${item._id}`);
-    } else {
-      alert("No matching result found");
+    if (!value.trim()) {
+      setResults([]);
+      setShowDropdown(false);
+      return;
     }
-  } catch (err) {
-    alert("Search error");
-  }
-};
+
+    try {
+      const res = await fetch(
+        `https://edu-portal-backend-qjkm.onrender.com/api/search?q=${encodeURIComponent(value)}`
+      );
+      const data = await res.json();
+
+      setResults(data.slice(0, 5)); // top 5 results
+      setShowDropdown(true);
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 🔥 ENTER SEARCH (fallback)
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+
+    try {
+      const res = await fetch(
+        `https://edu-portal-backend-qjkm.onrender.com/api/search?q=${encodeURIComponent(query)}`
+      );
+      const data = await res.json();
+
+      if (data.length > 0) {
+        const item = data[0];
+        navigate(`/${item.type}/${item._id}`);
+      } else {
+        alert("No matching result found");
+      }
+
+    } catch (err) {
+      alert("Search error");
+    }
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -38,7 +67,7 @@ function Home() {
     <div>
 
       {/* HERO SECTION */}
-      <div className="hero text-center text-white">
+      <div className="hero text-center text-white position-relative">
         <h1>How can we help you?</h1>
 
         <input
@@ -46,9 +75,29 @@ function Home() {
           placeholder="Search policies, schemes, exams..."
           className="search-bar"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleChange}
           onKeyDown={handleKeyPress}
         />
+
+        {/* 🔥 DROPDOWN */}
+        {showDropdown && results.length > 0 && (
+          <div className="search-dropdown">
+            {results.map(item => (
+              <div
+                key={item._id}
+                className="search-item"
+                onClick={() => {
+                  navigate(`/${item.type}/${item._id}`);
+                  setShowDropdown(false);
+                  setQuery("");
+                }}
+              >
+                <b>{item.title}</b>
+                <p className="mb-0 text-muted">{item.type}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* MAIN CONTENT */}
@@ -56,7 +105,7 @@ function Home() {
 
         <div className="row">
 
-          {/* LEFT SIDE TOPICS */}
+          {/* LEFT SIDE */}
           <div className="col-md-3">
             <h5>Most Searched Topics</h5>
 
@@ -69,7 +118,7 @@ function Home() {
             </ul>
           </div>
 
-          {/* RIGHT SIDE DASHBOARD */}
+          {/* RIGHT SIDE */}
           <div className="col-md-9">
 
             <h5 className="mb-4">TOP CATEGORIES</h5>
@@ -117,26 +166,26 @@ function Home() {
               </div>
 
               <div className="col-md-4 mb-4">
-               <Link to="/scholarships" className="card-link">
-                 <div className="info-card">
-                  💰
-                  <h5>Scholarships</h5>
-                  <p>Explore financial aid & merit scholarships</p>
-                 </div>
-               </Link>
-             </div>
+                <Link to="/scholarships" className="card-link">
+                  <div className="info-card">
+                    💰
+                    <h5>Scholarships</h5>
+                    <p>Explore financial aid & merit scholarships</p>
+                  </div>
+                </Link>
+              </div>
 
-             <div className="col-md-4 mb-4">
-               <Link to="/news" className="card-link">
-                 <div className="info-card">
-                  📰
-                  <h5>Education News</h5>
-                 <p>Latest updates & announcements</p>
-                </div>
-              </Link>
-             </div>
+              <div className="col-md-4 mb-4">
+                <Link to="/news" className="card-link">
+                  <div className="info-card">
+                    📰
+                    <h5>Education News</h5>
+                    <p>Latest updates & announcements</p>
+                  </div>
+                </Link>
+              </div>
 
-             </div>
+            </div>
           </div>
 
         </div>
