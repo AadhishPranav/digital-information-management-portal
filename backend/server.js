@@ -9,8 +9,10 @@ const regulationRoutes = require("./routes/regulations");
 const higherStudyRoutes = require("./routes/higherstudies");
 const scholarshipRoutes = require("./routes/scholarships");
 const newsRoutes = require("./routes/news");
-
+const searchRoutes = require("./routes/search");
 const app = express();
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -21,7 +23,7 @@ app.use("/api/regulations", regulationRoutes);
 app.use("/api/higherstudies", higherStudyRoutes);
 app.use("/api/scholarships", scholarshipRoutes);
 app.use("/api/news", newsRoutes);
-
+app.use("/api/search", searchRoutes);
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });

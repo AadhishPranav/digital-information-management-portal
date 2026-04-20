@@ -1,7 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./Home.css";
 
 function Home() {
+
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+  if (!query.trim()) return;
+
+  try {
+    const res = await fetch(
+      `https://edu-portal-backend-qjkm.onrender.com/api/search/${encodeURIComponent(query)}`
+    );
+    const data = await res.json();
+
+    if (data.length > 0) {
+      const item = data[0]; // first match
+
+      navigate(`/${item.type}/${item._id}`);
+    } else {
+      alert("No matching result found");
+    }
+  } catch (err) {
+    alert("Search error");
+  }
+};
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <div>
 
@@ -13,6 +45,9 @@ function Home() {
           type="text"
           placeholder="Search policies, schemes, exams..."
           className="search-bar"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyPress}
         />
       </div>
 
